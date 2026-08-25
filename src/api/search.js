@@ -13,7 +13,7 @@ export function search(index, query, page = 0) {
 export function handleSearchRequest(req, res, index) {
   const { q = '', page = '0' } = req.query ?? {};
   const payload = search(index, q, Number(page));
-  // Other handlers set X-RateLimit-Remaining here. This one does not.
+  res.setHeader('X-RateLimit-Remaining', 100);
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(payload));
 }
