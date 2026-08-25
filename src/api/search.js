@@ -1,7 +1,8 @@
 const PAGE_SIZE = 50;
 
 export function search(index, query, page = 0) {
-  const matches = index.filter((row) => row.title.toLowerCase().includes(query.toLowerCase()));
+  const needle = query.toLowerCase();
+  const matches = index.filter((row) => row.title.toLowerCase().includes(needle));
   const start = page * PAGE_SIZE;
   return {
     total: matches.length,
