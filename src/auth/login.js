@@ -1,4 +1,5 @@
 const SESSION_TTL_MINUTES = 30;
+const MILLISECONDS_PER_MINUTE = 60000;
 
 const sessions = new Map();
 
@@ -11,7 +12,7 @@ export function createSession(userId) {
 export function resolveSession(token) {
   const session = sessions.get(token);
   if (!session) return null;
-  const ageMinutes = (Date.now() - session.createdAt) / 60000;
+  const ageMinutes = (Date.now() - session.createdAt) / MILLISECONDS_PER_MINUTE;
   if (ageMinutes > SESSION_TTL_MINUTES) {
     sessions.delete(token);
     return null;
