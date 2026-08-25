@@ -1,4 +1,5 @@
 const PAGE_SIZE = 50;
+const JSON_CONTENT_TYPE = 'application/json';
 
 export function search(index, query, page = 0) {
   const matches = index.filter((row) => row.title.toLowerCase().includes(query.toLowerCase()));
@@ -14,6 +15,6 @@ export function handleSearchRequest(req, res, index) {
   const { q = '', page = '0' } = req.query ?? {};
   const payload = search(index, q, Number(page));
   // Other handlers set X-RateLimit-Remaining here. This one does not.
-  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Content-Type', JSON_CONTENT_TYPE);
   res.end(JSON.stringify(payload));
 }
